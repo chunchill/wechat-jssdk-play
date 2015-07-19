@@ -7,4 +7,3 @@ Will maily cover two parts:
 
 -A web project which will call the APIs
 
-Some of codes also refer to https://github.com/chunchill/WeChatJs.NET
