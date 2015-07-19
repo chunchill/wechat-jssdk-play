@@ -6,3 +6,5 @@ Will maily cover two parts:
 -Wechat web APIs for webchat jssdk
 
 -A web project which will call the APIs
+
+Some of codes also refer to https://github.com/chunchill/WeChatJs.NET
