@@ -7,7 +7,7 @@ using System.Web.Http;
 
 namespace WechatJssdkPlayApis.Controllers
 {
-    public class SignatureController : ApiController
+    public class WechatAppController : ApiController
     {
     }
 }
