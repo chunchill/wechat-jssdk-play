@@ -1,6 +1,8 @@
 ﻿//File Upload response from the server
 Dropzone.options.dropzoneForm = {
     maxFiles: 2,
+    maxFilesize: 2,
+    dictFileTooBig: "当前文件大小{{filesize}},最大限制：{{maxFilesize}}",
     url: "/todo",
     dictResponseError: "上传出错,错误代码:{{statusCode}}",
     init: function () {

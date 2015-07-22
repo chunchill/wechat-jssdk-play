@@ -1304,7 +1304,7 @@
 		cursor: pointer;
 		border: 0;
 		border-radius: 5px;
-		background: #d52349;
+		/*background: #d52349;*/
 		color: #fff !important;
 		font-weight: 700;
 		outline: 0;
@@ -1322,7 +1322,7 @@
 		input[type="button"]:hover,
 		input[type="submit"]:hover,
 		input[type="reset"]:hover,
-		button:hover,
+		/*button:hover,*/
 		.button:hover {
 			background: #e53359;
 		}
@@ -1330,7 +1330,7 @@
 		input[type="button"]:active,
 		input[type="submit"]:active,
 		input[type="reset"]:active,
-		button:active,
+		/*button:active,*/
 		.button:active {
 			background: #c51349;
 		}
