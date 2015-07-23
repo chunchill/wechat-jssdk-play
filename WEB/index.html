@@ -16,7 +16,7 @@
     <link href="assets/css/override-main.css" rel="stylesheet" />
     <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 </head>
-<body class="homepage">
+<body class="homepage" ng-app="uploadApp">
     <div id="page-wrapper">
 
         <!-- Header -->
@@ -45,37 +45,46 @@
                 </section>
 
                 <!-- Intro -->
-                <section id="intro" class="container">
+                <section id="intro" class="container" ng-controller="UploadController">
                     <div class="row">
                         <div class="12u 12u(mobile)">
                             <section class="first">
                                 <div class="12u 12u(mobile)" id="dropzone">
-                                    <div class="dropzone" id="dropzoneForm">
+
+                                    <form action="http://localhost:13239/Api/Image/Test" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
                                         <div class="dz-message">点击方框区域上传</div>
                                         <div class="fallback">
                                             <input name="file" type="file" multiple />
                                             <input type="submit" value="Upload" />
                                         </div>
-                                    </div>
+                                    </form>
+
+                                    <!--<div class="dropzone" id="dropzoneForm">
+                                        <div class="dz-message">点击方框区域上传</div>
+                                        <div class="fallback">
+                                            <input name="file" type="file" multiple />
+                                            <input type="submit" value="Upload" />
+                                        </div>
+                                    </div>-->
                                 </div>
                                 <br />
-                                    <form method="post" action="#">
-                                        <div class="row 50%">
-                                            <div class="12u 12u$(xsmall)"><input type="text" name="name" id="name" placeholder="文件名" disabled></div>
-                                            <div class="12u">
-                                                <textarea name="message" placeholder="照片描述"></textarea>
-                                            </div>
+                                <form method="post" action="#">
+                                    <div class="row 50%">
+                                        <div class="12u 12u$(xsmall)"><input type="text" name="name" id="name" ng-model="fileName" placeholder="文件名" disabled></div>
+                                        <div class="12u">
+                                            <textarea name="message" ng-model="description" placeholder="照片描述"></textarea>
                                         </div>
-                                        <div class="row 50%">
-                                            <div class="12u">
-                                                <ul class="actions">
-                                                    <li><input class="mytheme" type="button" value="提交"></li>
-                                                    <li><input class="mytheme" type="button" value="重置"></li>
-                                                </ul>
-                                            </div>
+                                    </div>
+                                    <div class="row 50%">
+                                        <div class="12u">
+                                            <ul class="actions">
+                                                <li><input class="mytheme" type="button" ng-click="submit()" value="提交"></li>
+                                                <li><input class="mytheme" type="button" ng-click="reset()" value="重置"></li>
+                                            </ul>
                                         </div>
-                                    </form>
-                                 
+                                    </div>
+                                </form>
+
                             </section>
                         </div>
                     </div>
@@ -178,6 +187,7 @@
 
     <!-- Scripts -->
     <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/angular.js"></script>
     <script src="assets/js/jquery.dropotron.min.js"></script>
     <script src="assets/js/skel.min.js"></script>
     <script src="assets/js/skel-viewport.min.js"></script>
@@ -186,5 +196,6 @@
     <script src="assets/js/main.js"></script>
     <script src="assets/plugins/dropzone/dropzone.min.js"></script>
     <script src="js/setup-dragzone.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>
