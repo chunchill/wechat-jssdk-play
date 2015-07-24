@@ -1,7 +1,8 @@
 ﻿//File Upload response from the server
 Dropzone.options.dropzoneForm = {
-    maxFiles: 2,
+    maxFiles: 1,
     //maxFilesize: 2,
+    url: 'http://localhost:13239/Api/Image/Upload',
     dictFileTooBig: "当前文件大小{{filesize}},最大限制：{{maxFilesize}}",
     dictResponseError: "上传出错,错误代码:{{statusCode}}",
     init: function () {
@@ -11,7 +12,14 @@ Dropzone.options.dropzoneForm = {
         });
 
         this.on("success", function (file, res) {
-            alert("sucess");
+            var fileName = res.Message;
+            var element = angular.element($("#fileName"));
+            var controller = element.controller();
+            var scope = element.scope();
+            //as this happends outside of angular you probably have to notify angular of the change by wrapping your function call in $apply
+            scope.$apply(function () {
+                scope.fileName= fileName;
+            });
         });
 
         this.on("addedfile", function (file) {

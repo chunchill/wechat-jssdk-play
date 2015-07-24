@@ -51,26 +51,26 @@
                             <section class="first">
                                 <div class="12u 12u(mobile)" id="dropzone">
 
-                                    <form action="http://localhost:13239/Api/Image/Test" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
+                                    <!--<form action="http://localhost:13239/Api/Image/Upload" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
                                         <div class="dz-message">点击方框区域上传</div>
                                         <div class="fallback">
                                             <input name="file" type="file" multiple />
                                             <input type="submit" value="Upload" />
                                         </div>
-                                    </form>
+                                    </form>-->
 
-                                    <!--<div class="dropzone" id="dropzoneForm">
+                                    <div class="dropzone" id="dropzoneForm">
                                         <div class="dz-message">点击方框区域上传</div>
                                         <div class="fallback">
                                             <input name="file" type="file" multiple />
                                             <input type="submit" value="Upload" />
                                         </div>
-                                    </div>-->
+                                    </div>
                                 </div>
                                 <br />
                                 <form method="post" action="#">
                                     <div class="row 50%">
-                                        <div class="12u 12u$(xsmall)"><input type="text" name="name" id="name" ng-model="fileName" placeholder="文件名" disabled></div>
+                                        <div class="12u 12u$(xsmall)"><input type="text" name="name" id="fileName" ng-model="fileName" placeholder="上传后的文件名" disabled></div>
                                         <div class="12u">
                                             <textarea name="message" ng-model="description" placeholder="照片描述"></textarea>
                                         </div>
@@ -92,78 +92,6 @@
 
             </div>
         </div>
-
-        <!-- Main -->
-        <div id="main-wrapper">
-            <div class="container">
-                <div class="row">
-                    <div class="12u">
-
-                        <!-- Portfolio -->
-                        <section id="my-upload">
-                            <header class="major">
-                                <h2>我的上传</h2>
-                            </header>
-                            <div class="row">
-                                <div class="4u 12u(mobile)">
-                                    <section class="box">
-                                        <a href="#" class="image featured"><img src="images/pic02.jpg" alt="" /></a>
-
-                                        <p>Lorem ipsum dolor sit amet sit veroeros sed amet blandit consequat veroeros lorem blandit  adipiscing et feugiat phasellus tempus dolore ipsum lorem dolore.</p>
-
-                                    </section>
-                                </div>
-                                <div class="4u 12u(mobile)">
-                                    <section class="box">
-                                        <a href="#" class="image featured"><img src="images/pic03.jpg" alt="" /></a>
-
-                                        <p>Lorem ipsum dolor sit amet sit veroeros sed amet blandit consequat veroeros lorem blandit  adipiscing et feugiat phasellus tempus dolore ipsum lorem dolore.</p>
-
-                                    </section>
-                                </div>
-                                <div class="4u 12u(mobile)">
-                                    <section class="box">
-                                        <a href="#" class="image featured"><img src="images/pic04.jpg" alt="" /></a>
-
-                                        <p>Lorem ipsum dolor sit amet sit veroeros sed amet blandit consequat veroeros lorem blandit  adipiscing et feugiat phasellus tempus dolore ipsum lorem dolore.</p>
-
-                                    </section>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="4u 12u(mobile)">
-                                    <section class="box">
-                                        <a href="#" class="image featured"><img src="images/pic05.jpg" alt="" /></a>
-
-                                        <p>Lorem ipsum dolor sit amet sit veroeros sed amet blandit consequat veroeros lorem blandit  adipiscing et feugiat phasellus tempus dolore ipsum lorem dolore.</p>
-
-                                    </section>
-                                </div>
-                                <div class="4u 12u(mobile)">
-                                    <section class="box">
-                                        <a href="#" class="image featured"><img src="images/pic06.jpg" alt="" /></a>
-
-                                        <p>Lorem ipsum dolor sit amet sit veroeros sed amet blandit consequat veroeros lorem blandit  adipiscing et feugiat phasellus tempus dolore ipsum lorem dolore.</p>
-
-                                    </section>
-                                </div>
-                                <div class="4u 12u(mobile)">
-                                    <section class="box">
-                                        <a href="#" class="image featured"><img src="images/pic07.jpg" alt="" /></a>
-
-                                        <p>Lorem ipsum dolor sit amet sit veroeros sed amet blandit consequat veroeros lorem blandit  adipiscing et feugiat phasellus tempus dolore ipsum lorem dolore.</p>
-
-                                    </section>
-                                </div>
-                            </div>
-                        </section>
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
         <!-- Footer -->
         <div id="footer-wrapper">
             <section id="footer" class="container">

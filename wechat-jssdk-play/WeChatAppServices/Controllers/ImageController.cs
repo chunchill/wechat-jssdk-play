@@ -16,79 +16,76 @@ namespace WeChatAppServices.Controllers
       private SQLLiteContext db = new SQLLiteContext();
 
       [HttpPost]
-      public void UploadFile()
-      {
-         if (HttpContext.Current.Request.Files.AllKeys.Any())
-         {
-            // Get the uploaded image from the Files collection
-            var httpPostedFile = HttpContext.Current.Request.Files["UploadedImage"];
-            if (httpPostedFile != null)
-            {
-               // Validate the uploaded image(optional)
-
-               // Get the complete file path
-               var fileSavePath = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadedFiles"), httpPostedFile.FileName);
-
-               // Save the uploaded file to "UploadedFiles" folder
-               httpPostedFile.SaveAs(fileSavePath);
-            }
-         }
-      }
-
-      [HttpPost]
       public IHttpActionResult Upload()
       {
          bool isSavedSuccessfully = true;
          string fName = "";
-         foreach (string fileName in HttpContext.Current.Request.Files)
+         try
          {
-            var file = HttpContext.Current.Request.Files[fileName];
-            //Save file content goes here
-
-            var extension = System.IO.Path.GetExtension(file.FileName);
-            var newName = Guid.NewGuid().ToString();
-            fName = string.Format("{0}{1}", newName, extension);
-
-
-            if (file != null && file.ContentLength > 0)
+            foreach (string fileName in HttpContext.Current.Request.Files)
             {
+               var file = HttpContext.Current.Request.Files[fileName];
+               //Save file content goes here
+               var extension = System.IO.Path.GetExtension(file.FileName);
+               var newName = Guid.NewGuid().ToString();
+               fName = string.Format("{0}{1}", newName, extension);
 
-               var originalDirectory = new DirectoryInfo(string.Format("{0}uploadedFiles", HttpContext.Current.Server.MapPath(@"\")));
-               string pathString = System.IO.Path.Combine(originalDirectory.ToString(), "tempFiles");
-
-               var fileName1 = Path.GetFileName(file.FileName);
-
-               bool isExists = System.IO.Directory.Exists(pathString);
-
-               if (!isExists)
-                  System.IO.Directory.CreateDirectory(pathString);
-
-               var path = string.Format("{0}\\{1}", pathString, fName);
-               file.SaveAs(path);
-
-
-               //TODO:
+               if (file != null && file.ContentLength > 0)
+               {
+                  var originalDirectory = new DirectoryInfo(string.Format("{0}uploadedFiles", HttpContext.Current.Server.MapPath(@"\")));
+                  string pathString = System.IO.Path.Combine(originalDirectory.ToString(), "tempFiles");
+                  var fileName1 = Path.GetFileName(file.FileName);
+                  bool isExists = System.IO.Directory.Exists(pathString);
+                  if (!isExists)
+                     System.IO.Directory.CreateDirectory(pathString);
+                  var path = string.Format("{0}\\{1}", pathString, fName);
+                  file.SaveAs(path);
+               }
             }
-
          }
-
+         catch (Exception)
+         {
+            isSavedSuccessfully = false;
+         }
          if (isSavedSuccessfully)
          {
             return Json(new { Message = fName });
          }
          else
          {
-            return Json(new { Message = "Error in saving file" });
+            return Json(new { Message = "Error01" });//Error in saving file
          }
       }
 
+      public IHttpActionResult Vote(VoteData vote)
+      {
+         var targetImg= db.UploadedImages.Where(img => img.FileName == vote.FileName).FirstOrDefault();
+         if (targetImg != null)
+         {
+            var alreadyVoteToday= db.Votes.Any(v=>v.OpenID == vote.OpenID
+               && v.VoteDate.ToShortDateString() == DateTime.Now.ToShortDateString()
+               && v.TargetImage.FileName == vote.FileName);
+
+            if(alreadyVoteToday) 
+               return InternalServerError(new InvalidOperationException("Error-02"));//Already vote
+            db.Votes.Add(new Vote()
+            {
+                OpenID = vote.OpenID,
+                TargetImage =targetImg,
+                VoteDate = DateTime.Now
+            });
+             db.SaveChanges();
+         }
+
+         return Ok();
+      }
 
       [HttpPost]
       public IHttpActionResult Submit(UploadedImageData imageData)
       {
          if (!ImageFileExist(imageData.FileName, "tempFiles"))
          {
-            return InternalServerError(new FileNotFoundException("the image is missing!"));
+            return InternalServerError(new FileNotFoundException("Error-03"));//File missing
          }
          var currentImagePath = GetImageFile(imageData.FileName, "tempFiles");
          System.Drawing.Image img = System.Drawing.Image.FromFile(currentImagePath);
