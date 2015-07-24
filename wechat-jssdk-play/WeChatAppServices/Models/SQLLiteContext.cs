@@ -53,6 +53,8 @@ namespace WeChatAppServices.Models
 
       public DateTime VoteDate { get; set; }
 
+      public int UploadedImageId { get; set; }
+
       public virtual UploadedImage TargetImage { get; set; }
 
    }

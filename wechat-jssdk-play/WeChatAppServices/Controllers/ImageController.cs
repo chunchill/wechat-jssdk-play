@@ -64,14 +64,14 @@ namespace WeChatAppServices.Controllers
          {
             var alreadyVoteToday= db.Votes.Any(v=>v.OpenID == vote.OpenID
                && v.VoteDate.ToShortDateString() == DateTime.Now.ToShortDateString()
-               && v.TargetImage.FileName == vote.FileName);
+               && v.UploadedImageId.FileName == targetImg.ID);
 
             if(alreadyVoteToday) 
                return InternalServerError(new InvalidOperationException("Error-02"));//Already vote
             db.Votes.Add(new Vote()
             {
                 OpenID = vote.OpenID,
-                TargetImage =targetImg,
+                UploadedImageId =targetImg.ID,
                 VoteDate = DateTime.Now
             });
              db.SaveChanges();
