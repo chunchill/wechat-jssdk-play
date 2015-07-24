@@ -30,7 +30,7 @@ namespace WeChatAppServices.Models
 
    public class UploadedImage
    {
-      public int ID { get; set; }
+      public System.Int64 ID { get; set; }
 
       public string FileName { get; set; }
 
@@ -47,13 +47,13 @@ namespace WeChatAppServices.Models
 
    public class Vote
    {
-      public int ID { get; set; }
+      public System.Int64 ID { get; set; }
 
       public string OpenID { get; set; }
 
       public DateTime VoteDate { get; set; }
 
-      public int UploadedImageId { get; set; }
+      public System.Int64 UploadedImageId { get; set; }
 
       public virtual UploadedImage TargetImage { get; set; }
 

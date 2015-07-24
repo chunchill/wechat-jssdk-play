@@ -57,28 +57,31 @@ namespace WeChatAppServices.Controllers
          }
       }
 
+      [HttpPost]
       public IHttpActionResult Vote(VoteData vote)
       {
-         var targetImg= db.UploadedImages.Where(img => img.FileName == vote.FileName).FirstOrDefault();
+         var targetImg = db.UploadedImages.Where(img => img.FileName == vote.FileName).FirstOrDefault();
          if (targetImg != null)
          {
-            var alreadyVoteToday= db.Votes.Any(v=>v.OpenID == vote.OpenID
+            var alreadyVoteToday = db.Votes.Any(v => v.OpenID == vote.OpenID
                && v.VoteDate.ToShortDateString() == DateTime.Now.ToShortDateString()
-               && v.UploadedImageId.FileName == targetImg.ID);
+               && v.UploadedImageId == targetImg.ID);
 
-            if(alreadyVoteToday) 
+            if (alreadyVoteToday)
                return InternalServerError(new InvalidOperationException("Error-02"));//Already vote
             db.Votes.Add(new Vote()
             {
-                OpenID = vote.OpenID,
-                UploadedImageId =targetImg.ID,
-                VoteDate = DateTime.Now
+               OpenID = vote.OpenID,
+               UploadedImageId = targetImg.ID,
+               VoteDate = DateTime.Now
             });
-             db.SaveChanges();
+            db.SaveChanges();
          }
 
          return Ok();
       }
+
+
 
       [HttpPost]
       public IHttpActionResult Submit(UploadedImageData imageData)
@@ -119,6 +122,70 @@ namespace WeChatAppServices.Controllers
          {
             return InternalServerError(ex);
          }
+      }
+
+      public class VoteCount
+      {
+         public string FileName { get; set; }
+         public Int64 UploadedImageId { get; set; }
+         public int Count { get; set; }
+      }
+
+      [HttpGet]
+      public List<VoteCount> GetAllVoteData()
+      {
+         var result = new List<VoteCount>();
+         IQueryable<IGrouping<Int64, Vote>> groupData;
+         groupData = db.Votes.GroupBy(v => v.UploadedImageId).AsQueryable();
+         var groupList = groupData.ToList();
+         foreach (var item in groupList)
+         {
+            result.Add(new VoteCount()
+            {
+               FileName = item.First().TargetImage.FileName,
+               UploadedImageId = item.First().UploadedImageId,
+               Count = item.Count()
+            });
+         }
+         return result;
+      }
+
+      [HttpGet]
+      public VoteCount GetVoteDataByFileName(string fileName)
+      {
+         var result = new List<VoteCount>();
+         IQueryable<IGrouping<Int64, Vote>> groupData;
+         groupData = db.Votes.GroupBy(v => v.UploadedImageId).AsQueryable();
+         var groupList = groupData.ToList();
+         foreach (var item in groupList)
+         {
+            result.Add(new VoteCount()
+            {
+               FileName = item.First().TargetImage.FileName,
+               UploadedImageId = item.First().UploadedImageId,
+               Count = item.Count()
+            });
+         }
+         return result.FirstOrDefault(item => item.FileName == fileName);
+      }
+
+      [HttpGet]
+      public VoteCount GetVoteDataByImageID(Int64 imageId)
+      {
+         var result = new List<VoteCount>();
+         IQueryable<IGrouping<Int64, Vote>> groupData;
+         groupData = db.Votes.GroupBy(v => v.UploadedImageId).AsQueryable();
+         var groupList = groupData.ToList();
+         foreach (var item in groupList)
+         {
+            result.Add(new VoteCount()
+            {
+               FileName = item.First().TargetImage.FileName,
+               UploadedImageId = item.First().UploadedImageId,
+               Count = item.Count()
+            });
+         }
+         return result.FirstOrDefault(item => item.UploadedImageId == imageId);
       }
 
       [HttpGet]
