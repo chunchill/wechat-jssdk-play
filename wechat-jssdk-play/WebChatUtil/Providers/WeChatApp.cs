@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Net;
 
-namespace WebChatUtil.Providers
+namespace WeChatUtil.Providers
 {
    public class WeChatApp : IWeChatApp
    {

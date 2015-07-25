@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebChatUtil.Utils
+namespace WeChatUtil.Utils
 {
    static class Parameters
    {

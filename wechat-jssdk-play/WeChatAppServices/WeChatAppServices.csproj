@@ -210,9 +210,9 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WebChatUtil\WebChatUtil.csproj">
+    <ProjectReference Include="..\WebChatUtil\WeChatUtil.csproj">
       <Project>{ffdf9e57-64dc-4d14-99f8-3fddd8113d6f}</Project>
-      <Name>WebChatUtil</Name>
+      <Name>WeChatUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

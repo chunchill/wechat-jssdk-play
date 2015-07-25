@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebChatUtil.Models;
-using WebChatUtil.Providers;
+using WeChatUtil.Models;
+using WeChatUtil.Providers;
 
-namespace WebChatUtil.Services
+namespace WeChatUtil.Services
 {
-   interface IWebChatServices
+   interface IWeChatServices
    {
       void Setup(IWeChatApp wechat, TimeSpan cacheDuration);
       string GetTicket(string accessToken);

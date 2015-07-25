@@ -187,9 +187,9 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WebChatUtil\WebChatUtil.csproj">
+    <ProjectReference Include="..\WebChatUtil\WeChatUtil.csproj">
       <Project>{ffdf9e57-64dc-4d14-99f8-3fddd8113d6f}</Project>
-      <Name>WebChatUtil</Name>
+      <Name>WeChatUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

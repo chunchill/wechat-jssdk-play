@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using WeChatAppServices.Models;
-using WebChatUtil.Utils;
+using WeChatUtil.Utils;
 using System.Web.Script.Serialization;
 
 namespace WeChatAppServices.Controllers

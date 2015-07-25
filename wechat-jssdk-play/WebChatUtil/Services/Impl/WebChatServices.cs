@@ -5,13 +5,13 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using WebChatUtil.Models;
-using WebChatUtil.Providers;
-using WebChatUtil.Utils;
+using WeChatUtil.Models;
+using WeChatUtil.Providers;
+using WeChatUtil.Utils;
 
-namespace WebChatUtil.Services.Impl
+namespace WeChatUtil.Services.Impl
 {
-   public class WebChatServices : IWebChatServices
+   public class WeChatServices : IWeChatServices
    {
       private TimeSpan _cacheDuration;
       private IWeChatApp _wechat;

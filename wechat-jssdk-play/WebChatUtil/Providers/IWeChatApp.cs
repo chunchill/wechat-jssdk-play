@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebChatUtil.Providers
+namespace WeChatUtil.Providers
 {
    public interface IWeChatApp
    {
