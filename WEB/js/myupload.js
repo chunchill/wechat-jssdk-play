@@ -1,13 +1,13 @@
-﻿var app = angular.module('app', ['ngPhotoSwipe']);
+﻿var app = angular.module('app', ['ngPhotoSwipe', 'appConfig']);
 
-app.controller('imageController', ['$scope', '$http', '$window', function ($scope, $http, $window) {
+app.controller('imageController', ['$scope', '$http', '$window', 'config', function ($scope, $http, $window, cfg) {
     $scope.images = [];
 
     $scope.getImages = function () {
 
-        var serverImageFolder = 'http://localhost:13239/UploadedFiles/images';
-        var openId = 'abcdefg';
-        $http.get('http://localhost:13239/Api/Image/GetUploadedImages?openId=' + openId).
+        var serverImageFolder = cfg.baseUrl + 'UploadedFiles/images';
+        var openId = cfg.openId;
+        $http.get(cfg.serverApiUrl + 'Image/GetUploadedImages?openId=' + openId).
           success(function (data, status, headers, config) {
               data.forEach(function (item) {
                   $scope.images.push({

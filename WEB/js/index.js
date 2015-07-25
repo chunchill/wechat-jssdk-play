@@ -1,8 +1,8 @@
-﻿angular.module("uploadApp", ['chieffancypants.loadingBar', 'ngAnimate'])
+﻿angular.module("uploadApp", ['chieffancypants.loadingBar', 'ngAnimate', 'appConfig'])
    .config(function (cfpLoadingBarProvider) {
        cfpLoadingBarProvider.includeSpinner = true;
    })
-    .controller("UploadController", ['$scope', '$http', '$timeout', 'cfpLoadingBar', function ($scope, $http, $timeout, cfpLoadingBar) {
+    .controller("UploadController", ['$scope', '$http', '$timeout', 'cfpLoadingBar', 'config', function ($scope, $http, $timeout, cfpLoadingBar, cfg) {
 
         $scope.fileName = '';
         $scope.description = '';
@@ -12,10 +12,11 @@
             var imageData = {
                 fileName: $scope.fileName,
                 description: $scope.description,
-                openId: "abcdefg"
+                openId: cfg.openId
             };
-
-            $http.post('http://localhost:13239/Api/Image/submit', imageData).
+            var url = cfg.serverApiUrl + 'Image/submit';
+            alert(url);
+            $http.post(url, imageData).
               success(function (data, status, headers, config) {
                   $scope.completeProgressBar();
                   $scope.reset();
@@ -42,7 +43,7 @@
             cfpLoadingBar.complete();
             $scope.inProgress = false;
         }
-       
+
         $scope.inProgress = true;
 
         $scope.startProgressBar();

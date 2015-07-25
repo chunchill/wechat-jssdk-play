@@ -59,8 +59,7 @@
                             </header>
                             <!-- Dat gallery -->
                             <div ng-controller="imageController" class="image-thumbs">
-                                <h2>Image gallery:</h2>
-                                <div id="photoswipe" photo-swipe images="images">
+                                <div id="photoswipe" photo-swipe images="images" on-vote="vote(img)" class="row">
                                 </div>
                             </div>
 
@@ -107,6 +106,7 @@
     <script src="assets/plugins/photoswipe/photoswipe.min.js"></script>
     <script src="assets/plugins/photoswipe/photoswipe-ui-default.min.js"></script>
     <script src="assets/plugins/photoswipe/angular-photoswipe.js"></script>
+    <script src="js/config.js"></script>
     <script src="js/voteImage.js"></script>
 </body>
 </html>

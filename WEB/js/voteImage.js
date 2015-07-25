@@ -1,23 +1,27 @@
-﻿var app = angular.module('app', ['ngPhotoSwipe']);
+﻿var app = angular.module('app', ['ngPhotoSwipe', 'appConfig']);
 
-app.controller('imageController', ['$scope','$http', '$window', function ($scope,$http, $window) {
+app.controller('imageController', ['$scope', '$http', '$window', 'config', function ($scope, $http, $window, cfg) {
     $scope.images = [];
-
+    $scope.vote = function (img) {
+       
+        alert(img);
+        window.event.stopPropagation();
+    };
     $scope.getImages = function () {
-        
-        var serverImageFolder = 'http://localhost:13239/UploadedFiles/images';
 
-        $http.get('http://localhost:13239/Api/Image/GetAllUploadedImages').
+        var serverImageFolder = cfg.baseUrl + '/UploadedFiles/images';
+
+        $http.get(cfg.serverApiUrl + 'Image/GetAllUploadedImages').
           success(function (data, status, headers, config) {
               data.forEach(function (item) {
-                    $scope.images.push({
-                        src: serverImageFolder +   '/' + item.FileName,
-                        safeSrc: serverImageFolder +   '/' + item.FileName,
-                        thumb: serverImageFolder +   '/' + item.FileName,
-                        caption: item.Description,
-                        size: screenSize(item.Width, item.Height),
-                        type: 'image'
-                    });
+                  $scope.images.push({
+                      src: serverImageFolder + '/' + item.FileName,
+                      safeSrc: serverImageFolder + '/' + item.FileName,
+                      thumb: serverImageFolder + '/' + item.FileName,
+                      caption: item.Description,
+                      size: screenSize(item.Width, item.Height),
+                      type: 'image'
+                  });
               });
           }).
           error(function (data, status, headers, config) {

@@ -3,7 +3,7 @@
 ngPhotoSwipe.directive('photoSwipe', [ function () {
 	var template = 
 		'<div class="photoswipe-gallery" itemscope itemtype="http://schema.org/ImageGallery">' +
-			'<div photo-gallery images="images"></div>' +
+			'<div photo-gallery on-vote="vote(img)" images="images"></div>' +
 		'</div>';
 		
 	var initPhotoSwipeFromDOM = function(gallerySelector) {
@@ -223,7 +223,8 @@ ngPhotoSwipe.directive('photoSwipe', [ function () {
             images: '=',
             width: '=',
 			height: '=',
-			template: '='
+			template: '=',
+			'vote': '&onVote'
         },
         template: template,
 		link: linkFn
@@ -278,7 +279,7 @@ ngPhotoSwipe.directive('photoSlider', [ function () {
 
 ngPhotoSwipe.directive('photoGallery', [ function () {
 	var template = 
-		'<figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" ng-repeat="img in images">' +
+		'<figure class="4u 12u(mobile)" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" ng-repeat="img in images">' +
 			'<div class="media-item" ng-switch on="img.type">' +
 				'<div ng-switch-when="video">' +
 					'<a href="{{img.safeSrc}}" itemprop="contentUrl" data-size="{{img.size}}">' +
@@ -295,6 +296,7 @@ ngPhotoSwipe.directive('photoGallery', [ function () {
 			'</div>' +
 			
 			'<figcaption itemprop="caption description">{{img.caption}}</figcaption>' +
+            '<div><button class="mytheme" ng-click="vote({img:img.caption})">Vote</button></div>'+
 		'</figure>';
 			
 	return {
@@ -302,7 +304,8 @@ ngPhotoSwipe.directive('photoGallery', [ function () {
 		scope: {
             images: '=',
             width: '=',
-			height: '='
+            height: '=',
+            'vote' :'&onVote'
         },
         replace: true,
         template: template

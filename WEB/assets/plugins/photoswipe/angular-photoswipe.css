@@ -1,19 +1,19 @@
-.photoswipe-gallery {
+/*.photoswipe-gallery {
   width: 100%;
   float: left;
-}
+}*/
 
 .photoswipe-gallery img {
   width: 100%;
   height: auto;
 }
 
-.photoswipe-gallery figure {
+/*.photoswipe-gallery figure {
   display: block;
   float: left;
   margin: 0 5px 5px 0;
   width: 150px;
-}
+}*/
 
 /*.pswp__zoom-wrap {
 	margin: 0 auto;
