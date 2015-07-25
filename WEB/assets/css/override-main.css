@@ -3,15 +3,18 @@
 }
 
 button.mytheme,
+.button .mytheme,
 input[type="button"].mytheme {
     background: #d52349;
 }
 
+    .button .mytheme:hover,
     button.mytheme:hover,
     input[type="button"].mytheme:hover {
         background: #e53359;
     }
 
+    .button .mytheme:active,
     button.mytheme:active,
     input[type="button"].mytheme:active {
         background: #c51349;
@@ -19,19 +22,22 @@ input[type="button"].mytheme {
 
 /*This area is for the gallery*/
 .my-gallery {
-  width: 100%;
-  float: left;
+    width: 100%;
+    float: left;
 }
-.my-gallery img {
-  width: 100%;
-  height: auto;
-}
-.my-gallery figure {
-  display: block;
-  float: left;
-  margin: 0 5px 5px 0;
-  width: 150px;
-}
-.my-gallery figcaption {
-  display: none;
-}
+
+    .my-gallery img {
+        width: 100%;
+        height: auto;
+    }
+
+    .my-gallery figure {
+        display: block;
+        float: left;
+        margin: 0 5px 5px 0;
+        width: 150px;
+    }
+
+    .my-gallery figcaption {
+        display: none;
+    }

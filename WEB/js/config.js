@@ -3,7 +3,7 @@
     mode: 'production', //development or production
     serverApiUrl: 'http://localhost:13239/Api/',
     baseUrl: 'http://localhost:13239/',
-    openID: 'abcedfg'
+    openId: 'abcdefg'
 };
 
 angular.module("appConfig", [])

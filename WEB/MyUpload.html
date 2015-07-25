@@ -10,10 +10,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+    <link href="assets/plugins/angular-loading-bar/loading-bar.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/main.css" />
     <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
     <link href="assets/css/override-main.css" rel="stylesheet" />
-
+    <link href="assets/plugins/angular-toaster/toaster.css" rel="stylesheet" />
     <link href="assets/plugins/photoswipe/photoswipe.css" rel="stylesheet" />
     <link href="assets/plugins/photoswipe/default-skin/default-skin.css" rel="stylesheet" />
     <link href="assets/plugins/photoswipe/angular-photoswipe.css" rel="stylesheet" />
@@ -39,7 +40,7 @@
                 <!-- Banner -->
                 <section id="banner">
                     <header>
-                        <h2>嗨,这是一个用于分享到平台</h2>
+                        <h2>嗨,这是一个分享快乐时刻的平台</h2>
                         <p>你准备好了吗？</p>
                     </header>
                 </section>
@@ -59,8 +60,8 @@
                             </header>
                             <!-- Dat gallery -->
                             <div ng-controller="imageController" class="image-thumbs">
-                                <h2>Image gallery:</h2>
-                                <div id="photoswipe" photo-swipe images="images">
+                                <toaster-container toaster-options="{'time-out': 2000, 'animation-class': 'toast-top-center'}"></toaster-container>
+                                <div id="photoswipe" photo-swipe images="images" class="row">
                                 </div>
                             </div>
 
@@ -107,6 +108,8 @@
     <script src="assets/plugins/photoswipe/photoswipe.min.js"></script>
     <script src="assets/plugins/photoswipe/photoswipe-ui-default.min.js"></script>
     <script src="assets/plugins/photoswipe/angular-photoswipe.js"></script>
+    <script src="assets/plugins/angular-toaster/toaster.min.js"></script>
+    <script src="assets/plugins/angular-loading-bar/loading-bar.min.js"></script>
     <script src="js/config.js"></script>
     <script src="js/myupload.js"></script>
 </body>

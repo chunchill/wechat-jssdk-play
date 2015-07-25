@@ -1,37 +1,53 @@
-﻿var app = angular.module('app', ['ngPhotoSwipe', 'appConfig']);
+﻿var app = angular.module('app', ['ngPhotoSwipe', 'chieffancypants.loadingBar', 'toaster', 'appConfig']);
 
-app.controller('imageController', ['$scope', '$http', '$window', 'config', function ($scope, $http, $window, cfg) {
-    $scope.images = [];
+app.controller('imageController', ['$scope', '$http', '$window','config','cfpLoadingBar','toaster',
+    function ($scope, $http, $window, cfg, cfpLoadingBar, toaster) {
+        $scope.images = [];
 
-    $scope.getImages = function () {
-
-        var serverImageFolder = cfg.baseUrl + 'UploadedFiles/images';
-        var openId = cfg.openId;
-        $http.get(cfg.serverApiUrl + 'Image/GetUploadedImages?openId=' + openId).
-          success(function (data, status, headers, config) {
-              data.forEach(function (item) {
-                  $scope.images.push({
-                      src: serverImageFolder + '/' + item.FileName,
-                      safeSrc: serverImageFolder + '/' + item.FileName,
-                      thumb: serverImageFolder + '/' + item.FileName,
-                      caption: item.Description,
-                      size: screenSize(item.Width, item.Height),
-                      type: 'image'
+        $scope.getImages = function () {
+            $scope.startProgressBar();
+            var serverImageFolder = cfg.baseUrl + 'UploadedFiles/images';
+            var postUrl = cfg.serverApiUrl + 'Image/GetUploadedImages?openId=' + cfg.openId;
+            $http.get(postUrl).success(function (data, status, headers, config) {
+                  data.forEach(function (item) {
+                      $scope.images.push({
+                          src: serverImageFolder + '/' + item.FileName,
+                          safeSrc: serverImageFolder + '/' + item.FileName,
+                          thumb: serverImageFolder + '/' + item.FileName,
+                          caption: item.Description,
+                          needVote: false,
+                          size: screenSize(item.Width, item.Height),
+                          type: 'image'
+                      });
                   });
+                  $scope.completeProgressBar();
+              }).error(function (data, status, headers, config) {
+                  $scope.completeProgressBar();
+                  toaster.error("温馨提示", "服务器故障");
               });
-          }).
-          error(function (data, status, headers, config) {
-              alert('something wrong!');
-          });
 
-    };
+        };
 
-    var screenSize = function (width, height) {
-        var x = width ? width : $window.innerWidth;
-        var y = height ? height : $window.innerHeight;
+        var screenSize = function (width, height) {
+            var x = width ? width : $window.innerWidth;
+            var y = height ? height : $window.innerHeight;
 
-        return x + 'x' + y;
-    };
+            return x + 'x' + y;
+        };
 
-    $scope.getImages();
-}]);
+        $scope.startProgressBar = function () {
+            cfpLoadingBar.start();
+            $scope.inProgress = true;
+        };
+
+        $scope.completeProgressBar = function () {
+            cfpLoadingBar.complete();
+            $scope.inProgress = false;
+        }
+
+        $scope.inProgress = true;
+
+        $scope.startProgressBar();
+
+        $scope.getImages();
+    }]);

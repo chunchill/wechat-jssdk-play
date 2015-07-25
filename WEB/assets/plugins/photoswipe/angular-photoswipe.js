@@ -296,7 +296,7 @@ ngPhotoSwipe.directive('photoGallery', [ function () {
 			'</div>' +
 			
 			'<figcaption itemprop="caption description">{{img.caption}}</figcaption>' +
-            '<div><button class="mytheme" ng-click="vote({img:img.caption})">Vote</button></div>'+
+            '<span ng-show=img.needVote><i class="fa fa-heart">人气</i> : {{img.voteCount}}</span><div ng-show=img.needVote><button class="mytheme" ng-click="vote({img:img.imageId})">投一票</button></div>' +
 		'</figure>';
 			
 	return {
