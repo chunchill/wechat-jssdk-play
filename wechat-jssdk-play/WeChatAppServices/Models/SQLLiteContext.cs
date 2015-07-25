@@ -64,6 +64,8 @@ namespace WeChatAppServices.Models
 
    public class UploadedImageData
    {
+       public Int64 ImageId { get; set; }
+
       public string FileName { get; set; }
 
       public string Description { get; set; }
@@ -82,7 +84,7 @@ namespace WeChatAppServices.Models
 
       public DateTime VoteDate { get; set; }
 
-      public string FileName { get; set; }
+      public Int64 ImageId { get; set; }
    }
 
    #endregion
