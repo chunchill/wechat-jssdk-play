@@ -243,7 +243,7 @@ namespace WeChatAppServices.Controllers
          }
          var descriptionXMLPath = showFolder + "\\Description.xml";
 
-         var imagesFiles = System.IO.Directory.GetFiles(showFolder+"\\images");
+         var imagesFiles = System.IO.Directory.GetFiles(showFolder + "\\images");
 
          // Serialize 
          //Type[] imgTypes = { typeof(XMLImageModel) };
@@ -255,14 +255,15 @@ namespace WeChatAppServices.Controllers
          // Deserialize 
          using (var fs = new FileStream(descriptionXMLPath, FileMode.Open))
          {
-            Type[] imgTypes = { typeof(XMLImageModel)};
-            XmlSerializer serializer = new XmlSerializer(typeof(XMLImageModelCollection), imgTypes); 
+            Type[] imgTypes = { typeof(XMLImageModel) };
+            XmlSerializer serializer = new XmlSerializer(typeof(XMLImageModelCollection), imgTypes);
             XMLImageModelCollection imgs = (XMLImageModelCollection)serializer.Deserialize(fs);
             foreach (var item in imagesFiles)
             {
                var fileName = System.IO.Path.GetFileName(item);
-               
-               using (var imgItem = System.Drawing.Image.FromFile(item)) {
+
+               using (var imgItem = System.Drawing.Image.FromFile(item))
+               {
 
                   result.Add(new UploadedImageData()
                   {
@@ -277,8 +278,39 @@ namespace WeChatAppServices.Controllers
          return result;
       }
 
+      [HttpGet]
+      public IHttpActionResult GenerateDescription()
+      {
+         var showFolder = GetImageFolder("Show");
+         if (!System.IO.Directory.Exists(showFolder))
+         {
+            System.IO.Directory.CreateDirectory(showFolder);
+         }
+         var descriptionXMLPath = showFolder + "\\Description.xml";
+         if (!System.IO.File.Exists(descriptionXMLPath))
+         {
+            System.IO.File.Create(descriptionXMLPath);
+         }
+         var imagesFiles = System.IO.Directory.GetFiles(showFolder + "\\images");
+         XMLImageModelCollection collection = new XMLImageModelCollection();
+         foreach (var item in imagesFiles)
+         {
+            collection.images.Add(new XMLImageModel()
+            {
+                Description = System.IO.Path.GetFileNameWithoutExtension(item),
+                FileName = System.IO.Path.GetFileName(item)
+            });
+         }
+         // Serialize 
+         Type[] imgTypes = { typeof(XMLImageModel) };
+         XmlSerializer serializer = new XmlSerializer(typeof(XMLImageModelCollection), imgTypes);
+         FileStream fs = new FileStream(descriptionXMLPath, FileMode.Create);
+         serializer.Serialize(fs, collection);
+         fs.Close();
+         return Ok();
+      }
 
-      private static string GetDescriptionByFileName(XMLImageModelCollection collection,string fileName)
+      private static string GetDescriptionByFileName(XMLImageModelCollection collection, string fileName)
       {
          var img = collection.images.FirstOrDefault(item => item.FileName == fileName);
          if (img != null)
