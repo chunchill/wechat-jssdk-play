@@ -69,6 +69,7 @@
     <Content Include="assets\sass\libs\_skel.scss" />
     <Content Include="assets\sass\libs\_vars.scss" />
     <Content Include="assets\sass\main.scss" />
+    <Content Include="js\show.js" />
     <Content Include="OAuth.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -172,6 +173,7 @@
     <Content Include="myUpload.html" />
     <Content Include="README.txt" />
     <Content Include="Redirect.html" />
+    <Content Include="show.html" />
     <Content Include="success.html" />
     <Content Include="voteImage.html" />
     <Content Include="Web.config" />

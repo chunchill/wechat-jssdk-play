@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<ImageGallery xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <images>
+    <Image>
+      <FileName>bird.jpg</FileName>
+      <Description>the first one</Description>
+    </Image>
+   <Image>
+      <FileName>1948.jpg</FileName>
+      <Description>the second one</Description>
+    </Image>
+  </images>
+</ImageGallery>

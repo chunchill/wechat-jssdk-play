@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using System.Xml.Serialization;
 
 namespace WeChatAppServices.Models
 {
@@ -64,7 +65,7 @@ namespace WeChatAppServices.Models
 
    public class UploadedImageData
    {
-       public Int64 ImageId { get; set; }
+      public Int64 ImageId { get; set; }
 
       public string FileName { get; set; }
 
@@ -76,6 +77,39 @@ namespace WeChatAppServices.Models
 
       public string OpenID { get; set; }
 
+   }
+
+   [XmlRoot("ImageGallery")]
+   [XmlInclude(typeof(XMLImageModel))]
+   public class XMLImageModelCollection //: IEnumerable<XMLImageModel>
+   {
+      public List<XMLImageModel> images = new List<XMLImageModel>();
+
+      public void Add(XMLImageModel img)
+      {
+         images.Add(img);
+      }
+
+      //public IEnumerator<XMLImageModel> GetEnumerator()
+      //{
+      //   return images.GetEnumerator();
+      //}
+
+      //System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+      //{
+      //   return images.GetEnumerator();
+      //}
+   }
+
+
+   [XmlType("Image")]
+   public class XMLImageModel
+   {
+      [XmlElement("FileName")]
+      public string FileName { get; set; }
+
+      [XmlElement("Description")]
+      public string Description { get; set; }
    }
 
    public class VoteData
