@@ -72,6 +72,7 @@
     <Content Include="assets\sass\main.scss" />
     <Content Include="js\show.js" />
     <Content Include="OAuth.ashx" />
+    <None Include="Properties\PublishProfiles\wechatsite.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

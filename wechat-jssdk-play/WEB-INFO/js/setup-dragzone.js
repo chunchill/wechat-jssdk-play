@@ -3,7 +3,7 @@ Dropzone.options.dropzoneForm = {
     maxFiles: 1,
     acceptedFiles: 'image/*',
     //maxFilesize: 2, //max file size 2M
-    url: 'http://localhost:13239/Api/Image/Upload',
+    url: window.config.serverApiUrl+'Image/Upload',
     dictFileTooBig: "当前文件大小{{filesize}},最大限制：{{maxFilesize}}",
     dictResponseError: "上传出错,错误代码:{{statusCode}}",
     init: function () {
