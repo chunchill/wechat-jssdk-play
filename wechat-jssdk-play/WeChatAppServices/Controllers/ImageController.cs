@@ -84,6 +84,12 @@ namespace WeChatAppServices.Controllers
             return Ok();
         }
 
+        [HttpGet]
+        public IHttpActionResult HelloWorld()
+        {
+            return Ok("Hello World");
+        }
+
 
 
         [HttpPost]
@@ -114,8 +120,8 @@ namespace WeChatAppServices.Controllers
                 db.SaveChanges();
 
                 var tempFilepath = GetImageFile(imageData.FileName, "tempFiles");
-                //create distination file folder path if not exist
 
+                //create distination file folder path if not exist
                 if (!ImageFolderExist("images"))
                     System.IO.Directory.CreateDirectory(GetImageFolder("images"));
 
@@ -124,7 +130,6 @@ namespace WeChatAppServices.Controllers
                 if (!System.IO.Directory.Exists(combinedFolder))
                     System.IO.Directory.CreateDirectory(combinedFolder);
                 System.IO.File.Move(tempFilepath, combinedFolder + "\\" + imageData.FileName);
-
                 return Ok();
             }
             catch (Exception ex)
