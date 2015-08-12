@@ -21,6 +21,7 @@ namespace WeChatAppServices.Controllers
         {
             bool isSavedSuccessfully = true;
             string fName = "";
+            var mimeType = string.Empty;
             try
             {
                 foreach (string fileName in HttpContext.Current.Request.Files)
@@ -28,6 +29,11 @@ namespace WeChatAppServices.Controllers
                     var file = HttpContext.Current.Request.Files[fileName];
                     //Save file content goes here
                     var extension = System.IO.Path.GetExtension(file.FileName);
+
+                    if (string.IsNullOrEmpty(extension))
+                    {
+                        mimeType = file.ContentType;
+                    }
                     var newName = Guid.NewGuid().ToString();
                     fName = string.Format("{0}{1}", newName, extension);
 
@@ -41,6 +47,10 @@ namespace WeChatAppServices.Controllers
                             System.IO.Directory.CreateDirectory(pathString);
                         var path = string.Format("{0}\\{1}", pathString, fName);
                         file.SaveAs(path);
+                        if (!ValidateImage(path))
+                        {
+                            return InternalServerError(new InvalidDataException("Not a image"));
+                        }
                     }
                 }
             }
@@ -50,12 +60,32 @@ namespace WeChatAppServices.Controllers
             }
             if (isSavedSuccessfully)
             {
-                return Json(new { Message = fName });
+                return Json(new { Message = fName, MimeType = mimeType });
             }
             else
             {
                 return Json(new { Message = "Error01" });//Error in saving file
             }
+        }
+
+        bool ValidateImage(string path)
+        {
+            System.Drawing.Image img = null;
+            bool isImg = true;
+            try
+            {
+               img = System.Drawing.Image.FromFile(path);
+            }
+            catch (OutOfMemoryException)
+            {
+                isImg = false;
+            }
+            finally {
+                if (img != null) img.Dispose();
+                if (!isImg) File.Delete(path);
+            }
+
+            return isImg;
         }
 
         [HttpPost]

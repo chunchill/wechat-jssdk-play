@@ -26,10 +26,15 @@
                     $scope.completeProgressBar();
                     return;
                 }
-                if (!checkImgType($scope.fileName)) {
-                    toaster.error("温馨提示", "删除当前文件，选择图片上传");
-                    $scope.completeProgressBar();
-                    return;
+                var tempfile = $scope.fileName;
+                var extension = tempfile.substring(tempfile.lastIndexOf('.'), tempfile.length).toLowerCase();
+                if (extension !== "") {
+                    if (!checkImgType($scope.fileName)) {
+                        alert($scope.fileName);
+                        toaster.error("温馨提示", "删除当前文件，选择图片上传");
+                        $scope.completeProgressBar();
+                        return;
+                    }
                 }
                 if ($scope.description === '') {
                     toaster.error("温馨提示", "添加描述后再提交");

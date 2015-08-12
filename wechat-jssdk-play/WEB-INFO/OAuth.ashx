@@ -3,13 +3,17 @@
 using System;
 using System.Web;
 using System.Web.Script.Serialization;
-using WebChatUtil.Utils;
+using WeChatUtil.Utils;
 using System.Collections.Generic;
 
 public class OAuth : IHttpHandler
 {
     JavaScriptSerializer Jss = new System.Web.Script.Serialization.JavaScriptSerializer();
-
+    //appid:wxcf7ccfe5c27e0dd1
+    //appsecret:3e389b75d7d4545423f9f75c420f6bd1
+    //redirect_url:http://139.129.15.91/photography/OAuth.ashx
+    //encode_url:http%3A%2F%2F139.129.15.91%2Fphotography%2FOAuth.ashx
+    //https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxcf7ccfe5c27e0dd1&redirect_uri=http%3A%2F%2F139.129.15.91%2Fphotography%2FOAuth.ashx&response_type=code&scope=snsapi_base&state=123#wechat_redirect
     public void ProcessRequest(HttpContext context)
     {
         if (string.IsNullOrEmpty(context.Request.QueryString["code"]))
@@ -29,8 +33,10 @@ public class OAuth : IHttpHandler
             var openId = CodeGetOpenid(appId, appSecret, code);
             if (!string.IsNullOrEmpty(openId))
             {
-                context.Response.SetCookie(new HttpCookie("wechat-app-user-openId") { Value = openId });
-                context.Response.Redirect("index.html");
+                //context.Response.SetCookie(new HttpCookie("wechat-app-user-openId") { Value = openId });
+                //context.Response.Redirect("index.html");
+                context.Response.Write(string.Format("OpenId:{0}", openId));
+                context.Response.Write(string.Format("Code:{0}", code));
             }
           
         }

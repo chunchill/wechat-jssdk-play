@@ -1,7 +1,7 @@
 ﻿//File Upload response from the server
 Dropzone.options.dropzoneForm = {
     maxFiles: 1,
-    acceptedFiles: 'image/*',
+    //acceptedFiles: 'image/*',
     //maxFilesize: 2, //max file size 2M
     url: window.config.serverApiUrl+'Image/Upload',
     dictFileTooBig: "当前文件大小{{filesize}},最大限制：{{maxFilesize}}",
@@ -10,6 +10,12 @@ Dropzone.options.dropzoneForm = {
         this.on("maxfilesexceeded", function (data) {
             var res = eval('(' + data.xhr.responseText + ')');
 
+        });
+
+        this.on("error", function (file, res) {
+            alert("非法文件");
+            _this = this;
+            _this.removeFile(file);
         });
 
         this.on("success", function (file, res) {
