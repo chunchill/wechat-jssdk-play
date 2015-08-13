@@ -78,6 +78,8 @@
     <Content Include="images\static\p4.jpg" />
     <Content Include="images\static\P5.jpg" />
     <Content Include="images\static\QRCode.jpg" />
+    <Content Include="js\upload.js" />
+    <Content Include="warning.html" />
     <Content Include="upload.html" />
     <Content Include="js\default.js" />
     <Content Include="js\show.js" />

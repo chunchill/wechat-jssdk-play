@@ -44,7 +44,8 @@
                 var imageData = {
                     fileName: $scope.fileName,
                     description: $scope.description,
-                    openId: cfg.openId
+                    openId: cfg.openId,
+                    nickName:cfg.nickName
                 };
                 var url = cfg.serverApiUrl + 'Image/submit';
                 $http.post(url, imageData).
@@ -62,6 +63,8 @@
             $scope.reset = function () {
                 //$scope.fileName = '';
                 $scope.description = '';
+                alert(cfg.openId);
+                alert(user.nickName);
             };
 
 
@@ -84,3 +87,9 @@
             }, 750);
 
         }]);
+
+//$(function () {
+//    var cfg = window.config;
+//    if (!cfg.compareDateWithToday(cfg.uploadStartDate))
+//        window.location.href = "warning.html";
+//})

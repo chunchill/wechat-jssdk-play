@@ -68,6 +68,7 @@ namespace WeChatAppServices.Controllers
             }
         }
 
+        //This is not a good practice, but as the Andriod could upload any binary file as an image,have to use such a method to verify an image
         bool ValidateImage(string path)
         {
             System.Drawing.Image img = null;
@@ -102,6 +103,10 @@ namespace WeChatAppServices.Controllers
                     if (alreadyVoteToday)
                         return InternalServerError(new InvalidOperationException("Error-02"));//Already vote
                 }
+                if (!db.Members.Any(m => m.OpenID == vote.OpenID))
+                {
+                    db.Members.Add(new Member() { OpenID = vote.OpenID, NickName = vote.NickName });
+                }
                 db.Votes.Add(new Vote()
                 {
                     OpenID = vote.OpenID,
@@ -131,6 +136,7 @@ namespace WeChatAppServices.Controllers
             }
             var dateFolder = DateTime.Today.ToString("yyyy-MM-dd");
             var currentImagePath = GetImageFile(imageData.FileName, "tempFiles");
+
             System.Drawing.Image img = System.Drawing.Image.FromFile(currentImagePath);
             var width = img.Width;
             var height = img.Height;
@@ -146,6 +152,10 @@ namespace WeChatAppServices.Controllers
             };
             try
             {
+                if (!db.Members.Any(m => m.OpenID == imageData.OpenID))
+                {
+                    db.Members.Add(new Member() { OpenID = imageData.OpenID,NickName = imageData.NickName });
+                }
                 db.UploadedImages.Add(imageModel);
                 db.SaveChanges();
 

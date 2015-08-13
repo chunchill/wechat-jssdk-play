@@ -18,6 +18,26 @@
     <link href="assets/plugins/photoswipe/photoswipe.css" rel="stylesheet" />
     <link href="assets/plugins/photoswipe/default-skin/default-skin.css" rel="stylesheet" />
     <link href="assets/plugins/photoswipe/angular-photoswipe.css" rel="stylesheet" />
+    <script type="text/javascript">
+        (function () {
+            WgateJs = {};
+            WgateJs.auto_auth = true;
+            WgateJs.gate_options = { force: 1, info: "basic" };
+            WgateJs.ready = function () {
+                var wgateid = WgateJs.getWgateid();
+                WgateJs.getWgateUser(function (user) {
+                    //console.info(user);
+                    var openId = user.openid;
+                    var nickName = user.nickName;
+                    window.localStorage.setItem("app-user-info", JSON.stringify(user));
+                });
+            }
+            var u = (("https:" == document.location.protocol) ? "https" : "http") + "://st.weixingate.com/";
+            u = u + 'st/1329';
+            var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0]; g.type = 'text/javascript';
+            g.defer = true; g.async = true; g.src = u; s.parentNode.insertBefore(g, s);
+        })();
+    </script>
 </head>
 <body class="homepage" ng-app='app'>
     <div id="page-wrapper">
@@ -27,22 +47,26 @@
             <div id="header">
 
                 <!-- Logo -->
-                <h1><a href="index.html">分享时刻</a></h1>
-
+                <h1><a href="#">"摄"英雄 召集令</a></h1>
+                <h2>首届DSM帝斯曼中国官方微信摄影大赛</h2>
+                <!-- Nav -->
                 <!-- Nav -->
                 <nav id="nav">
                     <ul>
-                        <li class="current"><a href="index.html">首页</a></li>
-                        <li><a href="#photo-gallary">参与投票</a></li>
+                        <li><a href="default.html">首页</a></li>
+                        <li><a href="upload.html">我要上传</a></li>
+                        <li class="current"><a href="voteImage.html">参与投票</a></li>
+                        <li><a href="myUpload.html">我的上传</a></li>
+                        <li><a href="show.html">优秀作品</a></li>
                     </ul>
                 </nav>
 
                 <!-- Banner -->
                 <section id="banner">
-                    <header>
+                    <!--<header>
                         <h2>嗨,这是一个分享快乐时刻的平台</h2>
                         <p>你准备好了吗？</p>
-                    </header>
+                    </header>-->
                 </section>
             </div>
         </div>
@@ -85,7 +109,7 @@
                         <!-- Copyright -->
                         <div id="copyright">
                             <ul class="links">
-                                <li>&copy; 帝斯曼（中国）有限公司Social Club. All rights reserved.</li>
+                                <li>&copy; 帝斯曼（中国）有限公司. All rights reserved.</li>
                             </ul>
                         </div>
 

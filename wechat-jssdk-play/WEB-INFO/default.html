@@ -16,6 +16,26 @@
     <link href="assets/css/font-awesome.min.css" rel="stylesheet" />
     <link href="assets/css/default-page.css" rel="stylesheet" />
     <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+    <script type="text/javascript">
+        (function () {
+            WgateJs = {};
+            WgateJs.auto_auth = true;
+            WgateJs.gate_options = { force: 1, info: "basic" };
+            WgateJs.ready = function () {
+                var wgateid = WgateJs.getWgateid();
+                WgateJs.getWgateUser(function (user) {
+                    //console.info(user);
+                    var openId = user.openid;
+                    var nickName = user.nickName;
+                    window.localStorage.setItem("app-user-info", JSON.stringify(user));
+                });
+            }
+            var u = (("https:" == document.location.protocol) ? "https" : "http") + "://st.weixingate.com/";
+            u = u + 'st/1329';
+            var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0]; g.type = 'text/javascript';
+            g.defer = true; g.async = true; g.src = u; s.parentNode.insertBefore(g, s);
+        })();
+    </script>
 </head>
 <body class="left-sidebar" ng-app="defaultApp">
     <div id="page-wrapper">
@@ -30,10 +50,11 @@
                 <!-- Nav -->
                 <nav id="nav">
                     <ul>
-                        <li class="current"><a href="#">首页</a></li>
-                        <li><a href="" ng-click="warn()">我要上传</a></li>
-                        <li><a href="" ng-click="warn()">参与投票</a></li>
-                        <li><a href="" ng-click="warn()">我的上传</a></li>
+                        <li class="current"><a href="default.html">首页</a></li>
+                        <li><a href="upload.html">我要上传</a></li>
+                        <li><a href="voteImage.html">参与投票</a></li>
+                        <li><a href="myUpload.html">我的上传</a></li>
+                        <li><a href="show.html">优秀作品</a></li>
                     </ul>
                 </nav>
 
@@ -153,7 +174,7 @@
                                             <a>主办方保留对比赛活动的最终解释权</a>
                                         </li>
                                         <li>
-                                            <a>主办方：帝斯曼（中国）有限公司Social Club</a>
+                                            <a>主办方：帝斯曼（中国）有限公司</a>
                                         </li>
                                     </ol>
                                 </p>

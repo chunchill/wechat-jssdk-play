@@ -19,6 +19,8 @@ namespace WeChatAppServices.Models
       public DbSet<UploadedImage> UploadedImages { get; set; }
 
       public DbSet<Vote> Votes { get; set; }
+
+      public DbSet<Member> Members { get; set; }
    }
 
 
@@ -60,6 +62,15 @@ namespace WeChatAppServices.Models
 
    }
 
+   public class Member
+   {
+       public System.Int64 ID { get; set; }
+
+       public string OpenID { get; set; }
+
+       public string NickName { get; set; }
+   }
+
 
    #region DTO Class
 
@@ -76,6 +87,8 @@ namespace WeChatAppServices.Models
       public int Width { get; set; }
 
       public string OpenID { get; set; }
+
+      public string NickName { get; set; }
 
    }
 
@@ -115,6 +128,8 @@ namespace WeChatAppServices.Models
    public class VoteData
    {
       public string OpenID { get; set; }
+
+      public string NickName { get; set; }
 
       public DateTime VoteDate { get; set; }
 

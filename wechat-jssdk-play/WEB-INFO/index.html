@@ -30,8 +30,15 @@
                 var wgateid = WgateJs.getWgateid();
                 WgateJs.getWgateUser(function (user) {
                     //console.info(user);
-                    var openId = user.openId;
-                    var nickName = user.nickName;                    
+                    var openId = user.openid;
+                    var nickName = user.nickName;
+                    window.localStorage.setItem("test", openId);
+                    window.localStorage.setItem("app-user-info", JSON.stringify(user));
+                    var userInfo =JSON.parse(window.localStorage.getItem("app-user-info"));
+                    alert(JSON.stringify(user));
+                    alert(userInfo.openid);
+                    alert(userInfo.nickname);
+                    alert(window.localStorage.getItem('test'));
                 });
             }
             var u = (("https:" == document.location.protocol) ? "https" : "http") + "://st.weixingate.com/";
@@ -97,7 +104,7 @@
                                 <br />
                                 <form method="post" action="#">
                                     <div class="row 50%">
-                                        <div class="12u 12u$(xsmall)"><input type="text" name="name" id="fileName" ng-model="fileName" placeholder="上传后的文件名" disabled></div>
+                                        <div class="12u 12u$(xsmall)" hidden="hidden"><input type="text" name="name" id="fileName" ng-model="fileName" placeholder="上传后的文件名" disabled></div>
                                         <div class="12u">
                                             <textarea name="message" ng-model="description" placeholder="照片描述"></textarea>
                                         </div>

@@ -1,13 +1,9 @@
-﻿angular.module("defaultApp", ['chieffancypants.loadingBar', 'ngAnimate', 'toaster'])
+﻿angular.module("defaultApp", ['chieffancypants.loadingBar', 'ngAnimate', 'toaster', 'appConfig'])
    .config(function (cfpLoadingBarProvider) {
        cfpLoadingBarProvider.includeSpinner = true;
    })
-    .controller("DefaultController", ['$scope', 'cfpLoadingBar', 'toaster', '$window','$timeout',
-        function ($scope, cfpLoadingBar, toaster, $window, $timeout) {
-
-            $scope.fileName = '';
-            $scope.description = '';
-
+    .controller("DefaultController", ['$scope', 'cfpLoadingBar', 'toaster', 'config', '$window', '$timeout',
+        function ($scope, cfpLoadingBar, toaster, cfg, $window, $timeout) {
 
             $scope.warn = function () {
                 toaster.success({ title: "温馨提示", body: "亲，活动目前为推广期" });
@@ -33,3 +29,4 @@
             }, 750);
 
         }]);
+

@@ -3,6 +3,9 @@
 app.controller('imageController', ['$scope', '$http', '$window', 'config', 'cfpLoadingBar', 'toaster',
     function ($scope, $http, $window, cfg, cfpLoadingBar, toaster) {
         $scope.images = [];
+        var cfg = $window.config;
+        if (!cfg.compareDateWithToday(cfg.showStartDate))
+            $window.location.href = "warning.html";
 
         $scope.getImages = function () {
             $scope.startProgressBar();
@@ -51,3 +54,10 @@ app.controller('imageController', ['$scope', '$http', '$window', 'config', 'cfpL
 
         $scope.getImages();
     }]);
+
+
+$(function () {
+    var cfg = window.config;
+    if (!cfg.compareDateWithToday(cfg.showStartDate))
+        window.location.href = "warning.html";
+})

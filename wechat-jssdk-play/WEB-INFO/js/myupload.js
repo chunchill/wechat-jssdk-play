@@ -3,7 +3,9 @@
 app.controller('imageController', ['$scope', '$http', '$window','config','cfpLoadingBar','toaster',
     function ($scope, $http, $window, cfg, cfpLoadingBar, toaster) {
         $scope.images = [];
-
+        var cfg = $window.config;
+        if (!cfg.compareDateWithToday(cfg.uploadStartDate))
+            $window.location.href = "warning.html";
         $scope.getImages = function () {
             $scope.startProgressBar();
             var serverImageFolder = cfg.baseUrl + 'UploadedFiles/images';
@@ -51,3 +53,9 @@ app.controller('imageController', ['$scope', '$http', '$window','config','cfpLoa
 
         $scope.getImages();
     }]);
+
+$(function () {
+    var cfg = window.config;
+    if (!cfg.compareDateWithToday(cfg.uploadStartDate))
+        window.location.href = "warning.html";
+})
