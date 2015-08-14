@@ -10,6 +10,10 @@ app.controller('imageController', ['$scope', '$http', '$window','config','cfpLoa
             $scope.startProgressBar();
             var serverImageFolder = cfg.baseUrl + 'UploadedFiles/images';
             var postUrl = cfg.serverApiUrl + 'Image/GetUploadedImages?openId=' + cfg.openId;
+            if (cfg.openId === undefined) {
+                toaster.error("温馨提示", "请到微信>设置>通用>清理微信存储空间后再进入页面");
+                return;
+            }
             $http.get(postUrl).success(function (data, status, headers, config) {
                   data.forEach(function (item) {
                       $scope.images.push({

@@ -7,6 +7,11 @@ app.controller('imageController', ['$scope', '$http', '$window', 'config', 'toas
         if (!cfg.compareDateWithToday(cfg.voteStartDate))
             $window.location.href = "warning.html";
         $scope.vote = function (img) {
+            if (cfg.openId === undefined) {
+                toaster.error("温馨提示", "请到微信>设置>通用>清理微信存储空间后再进入页面");
+                return;
+            }
+
             var voteUrl = cfg.serverApiUrl + 'Image/Vote';
             var voteData = {
                 openId: cfg.openId,

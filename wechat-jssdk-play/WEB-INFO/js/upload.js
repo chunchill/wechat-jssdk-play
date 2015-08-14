@@ -23,6 +23,12 @@
                     return true;
                 }
                 $scope.startProgressBar();
+
+                if (cfg.openId === undefined) {
+                    toaster.error("温馨提示", "请到微信>设置>通用>清理微信存储空间后再进入页面");
+                    return;
+                }
+
                 if ($scope.fileName === '') {
                     toaster.error("温馨提示", "图片上传出错");
                     $scope.completeProgressBar();

@@ -6,7 +6,7 @@
 -->
 <html>
 <head>
-    <title>图片分享</title>
+    <title>"摄"英雄 召集令</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -26,7 +26,9 @@
                     //console.info(user);
                     var openId = user.openid;
                     var nickName = user.nickName;
-                    window.localStorage.setItem("app-user-info", JSON.stringify(user));
+                    if (window.localStorage.getItem('app-user-info') == null) {
+                        window.localStorage.setItem("app-user-info", JSON.stringify(user));
+                    }
                 });
             }
             var u = (("https:" == document.location.protocol) ? "https" : "http") + "://st.weixingate.com/";
@@ -96,7 +98,7 @@
                         <!-- Copyright -->
                         <div id="copyright">
                             <ul class="links">
-                                <li>&copy; Untitled. All rights reserved.</li>
+                                <li>&copy; 帝斯曼（中国）有限公司. All rights reserved.</li>
                             </ul>
                         </div>
 

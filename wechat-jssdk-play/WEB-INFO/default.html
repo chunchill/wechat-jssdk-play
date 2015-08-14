@@ -27,7 +27,10 @@
                     //console.info(user);
                     var openId = user.openid;
                     var nickName = user.nickName;
-                    window.localStorage.setItem("app-user-info", JSON.stringify(user));
+                    if (window.localStorage.getItem('app-user-info') == null)
+                    {
+                        window.localStorage.setItem("app-user-info", JSON.stringify(user));
+                    }
                 });
             }
             var u = (("https:" == document.location.protocol) ? "https" : "http") + "://st.weixingate.com/";

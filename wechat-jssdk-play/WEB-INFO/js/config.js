@@ -4,16 +4,13 @@
     serverApiUrl: 'http://139.129.15.91:8020/Api/',
     baseUrl: 'http://139.129.15.91:8020/',
     openId: getUserInfo().openid,
-    nickName: getUserInfo().nickName,
-    uploadStartDate: new Date(2015, 7, 11),
-    voteStartDate: new Date(2015, 9, 1),
-    showStartDate: new Date(2015, 9, 20),
+    nickName: getUserInfo().nickname,
+    uploadStartDate: new Date(2015, 7, 16),
+    voteStartDate: new Date(2015, 8, 30),
+    showStartDate: new Date(2015, 9, 19),
     compareDateWithToday: function (date) {
         var today = new Date();
-        if (date > today)
-            return false;
-        else
-            return true;
+        return date < today
     }
 };
 

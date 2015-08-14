@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web;
 using System.Web.Http;
 using System.Xml.Serialization;
@@ -75,13 +76,14 @@ namespace WeChatAppServices.Controllers
             bool isImg = true;
             try
             {
-               img = System.Drawing.Image.FromFile(path);
+                img = System.Drawing.Image.FromFile(path);
             }
             catch (OutOfMemoryException)
             {
                 isImg = false;
             }
-            finally {
+            finally
+            {
                 if (img != null) img.Dispose();
                 if (!isImg) File.Delete(path);
             }
@@ -125,6 +127,18 @@ namespace WeChatAppServices.Controllers
             return Ok("Hello World");
         }
 
+        [HttpGet]
+        public IHttpActionResult Test()
+        {
+            var m = db.Members.FirstOrDefault();
+            var result = "It's a test";
+            if (m != null)
+            {
+                result = m.NickName;
+            }
+            return Ok(result);
+        }
+
 
 
         [HttpPost]
@@ -154,7 +168,7 @@ namespace WeChatAppServices.Controllers
             {
                 if (!db.Members.Any(m => m.OpenID == imageData.OpenID))
                 {
-                    db.Members.Add(new Member() { OpenID = imageData.OpenID,NickName = imageData.NickName });
+                    db.Members.Add(new Member() { OpenID = imageData.OpenID, NickName = imageData.NickName });
                 }
                 db.UploadedImages.Add(imageModel);
                 db.SaveChanges();
@@ -359,6 +373,15 @@ namespace WeChatAppServices.Controllers
             serializer.Serialize(fs, collection);
             fs.Close();
             return Ok();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
         private static string GetDescriptionByFileName(XMLImageModelCollection collection, string fileName)
