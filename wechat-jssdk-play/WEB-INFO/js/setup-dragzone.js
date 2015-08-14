@@ -2,7 +2,7 @@
 Dropzone.options.dropzoneForm = {
     maxFiles: 1,
     //acceptedFiles: 'image/*',
-    //maxFilesize: 2, //max file size 2M
+    maxFilesize: 1, //max file size 2M
     url: window.config.serverApiUrl+'Image/Upload',
     dictFileTooBig: "当前文件大小{{filesize}},最大限制：{{maxFilesize}}",
     dictResponseError: "上传出错,错误代码:{{statusCode}}",
@@ -13,7 +13,7 @@ Dropzone.options.dropzoneForm = {
         });
 
         this.on("error", function (file, res) {
-            alert("非法文件");
+            alert("只允许上传1M大小以内的照片");
             _this = this;
             _this.removeFile(file);
         });

@@ -5,7 +5,7 @@
     baseUrl: 'http://139.129.15.91:8020/',
     openId: getUserInfo().openid,
     nickName: getUserInfo().nickname,
-    uploadStartDate: new Date(2015, 7, 16),
+    uploadStartDate: new Date(2015, 7, 13),
     voteStartDate: new Date(2015, 8, 30),
     showStartDate: new Date(2015, 9, 19),
     compareDateWithToday: function (date) {
