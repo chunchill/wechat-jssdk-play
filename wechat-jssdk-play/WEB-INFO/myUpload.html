@@ -86,8 +86,9 @@
                             <!-- Dat gallery -->
                             <div ng-controller="imageController" class="image-thumbs">
                                 <toaster-container toaster-options="{'time-out': 2000, 'animation-class': 'toast-top-center'}"></toaster-container>
-                                <div id="photoswipe" photo-swipe images="images" class="row">
-                                </div>
+                                <button ng-click="pervious()">上一页</button>
+                                <button ng-click="next()">下一页</button>
+                                <div id="photoswipe" photo-swipe images="images" class="row"> </div>
                             </div>
 
                             <!-- Dem photoswipe -->

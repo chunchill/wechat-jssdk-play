@@ -40,6 +40,78 @@ app.controller('imageController', ['$scope', '$http', '$window', 'config', 'toas
             window.event.stopPropagation();
         };
 
+        //-----------------------------
+        var screenSize = function (width, height) {
+            var x = width ? width : $window.innerWidth;
+            var y = height ? height : $window.innerHeight;
+
+            return x + 'x' + y;
+        };
+        $scope.datasource = [];
+        $scope.pageSize = 2; //count of images for each screen page
+        $scope.currentPageIndex = 1; //start from page 1
+        $scope.totalItemsCount = 0; //total count of images 
+        $scope.startIndex = 0; //the start index of the image source
+
+        //get the next page
+        $scope.next = function () {
+
+            if ($scope.currentPageIndex * $scope.pageSize < $scope.totalItemsCount) {
+                $scope.startIndex = $scope.currentPageIndex * $scope.pageSize;
+                $scope.currentPageIndex += 1;
+            } else {
+                $scope.currentPageIndex = 1;
+                $scope.startIndex = 0;
+            }
+            setImageItems(false);
+        }
+
+        //get the previous page
+        $scope.pervious = function () {
+            if ($scope.currentPageIndex == 1) {
+                $scope.currentPageIndex = Math.round($scope.totalItemsCount / $scope.pageSize);
+                $scope.startIndex = ($scope.currentPageIndex - 1) * $scope.pageSize;
+            } else {
+
+                $scope.startIndex = ($scope.currentPageIndex - 2) * $scope.pageSize;
+                $scope.currentPageIndex -= 1;
+            }
+            setImageItems(false);
+        }
+
+        function setImageItems(isInit) {
+            $scope.images = [];
+            var image;
+
+            if (isInit) {
+                $scope.startIndex = 0;
+            }
+
+            for (var i = $scope.startIndex; i < $scope.startIndex + $scope.pageSize; i++) {
+                if (i < $scope.totalItemsCount) {
+                    image = {
+                        src: $scope.datasource[i].src,
+                        safeSrc: $scope.datasource[i].safeSrc,
+                        thumb: $scope.datasource[i].thumb,
+                        caption: $scope.datasource[i].caption,
+                        size: $scope.datasource[i].size,
+                        imageId: $scope.datasource[i].imageId,
+                        needVote: $scope.datasource[i].needVote,
+                        voteCount: $scope.datasource[i].voteCount,
+                        type: 'image'
+                    }
+                    $scope.images.push(image);
+                }
+            }
+        }
+
+        $scope.init = function () {
+            $scope.currentPageIndex = 1;
+            setImageItems(true);
+        }
+
+        //----------------------------
+
         var getImageCount = function (imgId, voteCounts) {
             if (voteCounts.length == 0) return 0;
             var result = 0;
@@ -60,7 +132,7 @@ app.controller('imageController', ['$scope', '$http', '$window', 'config', 'toas
                     $http.get(cfg.serverApiUrl + 'Image/GetAllUploadedImages').
                       success(function (data, status, headers, config) {
                           data.forEach(function (item) {
-                              $scope.images.push({
+                              $scope.datasource.push({
                                   src: serverImageFolder + '/' + item.FileName,
                                   safeSrc: serverImageFolder + '/' + item.FileName,
                                   thumb: serverImageFolder + '/' + item.FileName,
@@ -72,6 +144,8 @@ app.controller('imageController', ['$scope', '$http', '$window', 'config', 'toas
                                   type: 'image'
                               });
                           });
+                          $scope.totalItemsCount = $scope.datasource.length;
+                          $scope.init();
                       }).
                       error(function (data, status, headers, config) {
                           $scope.completeProgressBar();
@@ -82,13 +156,6 @@ app.controller('imageController', ['$scope', '$http', '$window', 'config', 'toas
                 error(function (data, status, headers, config) {
                     toaster.error("温馨提示", "服务器故障");
                 });
-        };
-
-        var screenSize = function (width, height) {
-            var x = width ? width : $window.innerWidth;
-            var y = height ? height : $window.innerHeight;
-
-            return x + 'x' + y;
         };
 
         $scope.startProgressBar = function () {

@@ -9,7 +9,9 @@
                 $window.location.href = "warning.html";
             $scope.fileName = '';
             $scope.description = '';
-            
+            $scope.showErrMsg = function () {
+                toaster.error("温馨提示","图片大小不操作1M");
+            };
             $scope.submit = function () {
                 function checkImgType(fileName) {
                     if (fileName == "") {
@@ -72,7 +74,6 @@
                 //$scope.fileName = '';
                 $scope.description = '';
             };
-
 
             $scope.startProgressBar = function () {
                 cfpLoadingBar.start();

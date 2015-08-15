@@ -13,7 +13,8 @@ Dropzone.options.dropzoneForm = {
         });
 
         this.on("error", function (file, res) {
-            alert("只允许上传1M大小以内的照片");
+            //window.alert("只允许上传1M大小以内的照片");
+            var element = $("#errBtn").trigger("click");
             _this = this;
             _this.removeFile(file);
         });
