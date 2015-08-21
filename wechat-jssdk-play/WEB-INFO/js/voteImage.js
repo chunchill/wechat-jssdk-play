@@ -48,10 +48,11 @@ app.controller('imageController', ['$scope', '$http', '$window', 'config', 'toas
             return x + 'x' + y;
         };
         $scope.datasource = [];
-        $scope.pageSize = 2; //count of images for each screen page
+        $scope.pageSize = 5; //count of images for each screen page
         $scope.currentPageIndex = 1; //start from page 1
         $scope.totalItemsCount = 0; //total count of images 
         $scope.startIndex = 0; //the start index of the image source
+        $scope.totalPage = 0;
 
         //get the next page
         $scope.next = function () {
@@ -103,6 +104,7 @@ app.controller('imageController', ['$scope', '$http', '$window', 'config', 'toas
                     $scope.images.push(image);
                 }
             }
+            $scope.totalPage = Math.ceil($scope.totalItemsCount / $scope.pageSize);
         }
 
         $scope.init = function () {
@@ -128,8 +130,8 @@ app.controller('imageController', ['$scope', '$http', '$window', 'config', 'toas
             $http.get(voteCountUrl)
                 .success(function (voteCounts, status, headers, config) {
                     $scope.completeProgressBar();
-                    var serverImageFolder = cfg.baseUrl + '/UploadedFiles/images';
-                    $http.get(cfg.serverApiUrl + 'Image/GetAllUploadedImages').
+                    var serverImageFolder = cfg.baseUrl + '/UploadedFiles/imagesForVote';
+                    $http.get(cfg.serverApiUrl + 'Image/GetSeletectedVoteImages').
                       success(function (data, status, headers, config) {
                           data.forEach(function (item) {
                               $scope.datasource.push({

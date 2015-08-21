@@ -58,6 +58,15 @@
                         <li><a href="upload.html">我要上传</a></li>
                         <li><a href="voteImage.html">参与投票</a></li>
                         <li class="current"><a href="myUpload.html">我的上传</a></li>
+                        <li>
+                            <a href="#">图片展</a>
+                            <ul>
+                                <li><a href="session1.html">图片展第一期</a></li>
+                                <li><a href="session2.html">图片展第二期</a></li>
+                                <li><a href="session3.html">图片展第三期</a></li>
+                                <li><a href="session4.html">图片展第四期</a></li>
+                            </ul>
+                        </li>
                         <li><a href="show.html">优秀作品</a></li>
                     </ul>
                 </nav>
@@ -74,17 +83,17 @@
 
         <!-- Main -->
         <div id="main-wrapper">
-            <div class="container">
+            <div class="container" ng-controller="imageController">
                 <div class="row">
                     <div class="12u">
 
                         <!-- Portfolio -->
                         <section id="photo-gallary">
                             <header class="major">
-                                <h2>图片展览</h2>
+                                <h2>图片展览 <span>({{currentPageIndex}}/{{totalPage}})</span></h2>
                             </header>
                             <!-- Dat gallery -->
-                            <div ng-controller="imageController" class="image-thumbs">
+                            <div class="image-thumbs">
                                 <toaster-container toaster-options="{'time-out': 2000, 'animation-class': 'toast-top-center'}"></toaster-container>
                                 <button ng-click="pervious()">上一页</button>
                                 <button ng-click="next()">下一页</button>

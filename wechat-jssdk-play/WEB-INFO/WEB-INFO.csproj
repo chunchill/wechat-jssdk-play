@@ -78,7 +78,15 @@
     <Content Include="images\static\p4.jpg" />
     <Content Include="images\static\P5.jpg" />
     <Content Include="images\static\QRCode.jpg" />
+    <Content Include="js\session4.js" />
+    <Content Include="js\session3.js" />
+    <Content Include="js\session2.js" />
+    <Content Include="js\session1.js" />
     <Content Include="js\upload.js" />
+    <Content Include="session4.html" />
+    <Content Include="session3.html" />
+    <Content Include="session2.html" />
+    <Content Include="session1.html" />
     <Content Include="warning.html" />
     <Content Include="upload.html" />
     <Content Include="js\default.js" />

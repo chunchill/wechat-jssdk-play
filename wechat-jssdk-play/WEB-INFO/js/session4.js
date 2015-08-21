@@ -4,8 +4,6 @@ app.controller('imageController', ['$scope', '$http', '$window', 'config', 'cfpL
     function ($scope, $http, $window, cfg, cfpLoadingBar, toaster) {
         $scope.images = [];
         var cfg = $window.config;
-        if (!cfg.compareDateWithToday(cfg.showStartDate))
-            $window.location.href = "warning.html";
 
         //-----------------------------
         var screenSize = function (width, height) {
@@ -20,7 +18,6 @@ app.controller('imageController', ['$scope', '$http', '$window', 'config', 'cfpL
         $scope.totalItemsCount = 0; //total count of images 
         $scope.startIndex = 0; //the start index of the image source
         $scope.totalPage = 0;
-
         //get the next page
         $scope.next = function () {
 
@@ -84,8 +81,8 @@ app.controller('imageController', ['$scope', '$http', '$window', 'config', 'cfpL
 
         $scope.getImages = function () {
             $scope.startProgressBar();
-            var serverImageFolder = cfg.baseUrl + 'UploadedFiles/show/images';
-            var postUrl = cfg.serverApiUrl + 'Image/GetAllGreatImages';
+            var serverImageFolder = cfg.baseUrl + 'UploadedFiles/session4';
+            var postUrl = cfg.serverApiUrl + 'Image/GetSessionImages?sessionId=4';
             $http.get(postUrl).success(function (data, status, headers, config) {
                 $scope.completeProgressBar();
                 data.forEach(function (item) {
@@ -128,10 +125,3 @@ app.controller('imageController', ['$scope', '$http', '$window', 'config', 'cfpL
 
         $scope.getImages();
     }]);
-
-
-$(function () {
-    var cfg = window.config;
-    if (!cfg.compareDateWithToday(cfg.showStartDate))
-        window.location.href = "warning.html";
-})

@@ -10,12 +10,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-    <link href="assets/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="assets/plugins/angular-toaster/toaster.css" rel="stylesheet" />
+    <link href="assets/plugins/angular-loading-bar/loading-bar.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/main.css" />
-    <link href="assets/css/override-main.css" rel="stylesheet" />
     <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-    <script type="text/javascript">
+    <link href="assets/css/override-main.css" rel="stylesheet" />
+    <link href="assets/plugins/angular-toaster/toaster.css" rel="stylesheet" />
+    <link href="assets/plugins/photoswipe/photoswipe.css" rel="stylesheet" />
+    <link href="assets/plugins/photoswipe/default-skin/default-skin.css" rel="stylesheet" />
+    <link href="assets/plugins/photoswipe/angular-photoswipe.css" rel="stylesheet" />
+    <!--<script type="text/javascript">
         (function () {
             WgateJs = {};
             WgateJs.auto_auth = true;
@@ -36,20 +39,18 @@
             var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0]; g.type = 'text/javascript';
             g.defer = true; g.async = true; g.src = u; s.parentNode.insertBefore(g, s);
         })();
-    </script>
+    </script>-->
 </head>
-<body class="homepage">
+<body class="homepage" ng-app='app'>
     <div id="page-wrapper">
 
         <!-- Header -->
         <div id="header-wrapper">
             <div id="header">
-
                 <!-- Logo -->
                 <h1><a href="#">"摄"英雄 召集令</a></h1>
                 <h2>首届DSM帝斯曼中国官方微信摄影大赛</h2>
                 <!-- Nav -->
-
                 <nav id="nav">
                     <ul>
                         <li class="current"><a href="default.html">首页</a></li>
@@ -63,41 +64,50 @@
                                 <li><a href="session2.html">图片展第二期</a></li>
                                 <li><a href="session3.html">图片展第三期</a></li>
                                 <li><a href="session4.html">图片展第四期</a></li>
-
                             </ul>
                         </li>
                         <li><a href="show.html">优秀作品</a></li>
                     </ul>
                 </nav>
-
                 <!-- Banner -->
                 <section id="banner">
                     <!--<header>
-                        <h2>嗨,这是一个用于分享到平台</h2>
-                        <p>你准备好了吗？</p>
+                        <h2>首届DSM帝斯曼中国官方微信摄影大赛</h2>
+                        <p>缤纷科技，美好生活</p>
                     </header>-->
-                </section> 
-
-                <!-- Intro -->
-                <section id="intro" class="container">
-                    <div class="row">
-                        <div class="12u 12u(mobile)">
-                            <section class="first">
-
-                                    <div class="row 50%">
-                                        <div class="12u">
-                                            <ul class="actions">
-                                                <li><a class="button mytheme" href="default.html">该操作还没到时间开放，点击回到首页</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                            </section>
-                        </div>
-                    </div>
                 </section>
+            </div>
+        </div>
+
+        <!-- Main -->
+        <div id="main-wrapper">
+            <div class="container" ng-controller="imageController">
+                <div class="row">
+                    <div class="12u">
+
+                        <!-- Portfolio -->
+                        <section id="photo-gallary">
+                            <header class="major">
+                                <h2>图片展览 <span>({{currentPageIndex}}/{{totalPage}})</span></h2>
+                            </header>
+                            <!-- Dat gallery -->
+                            <div class="image-thumbs">
+                                <toaster-container toaster-options="{'time-out': 2000, 'animation-class': 'toast-top-center'}"></toaster-container>
+                                <button ng-click="pervious()">上一页</button>
+                                <button ng-click="next()">下一页</button>
+                                <div id="photoswipe" photo-swipe images="images" class="row"> </div>
+                            </div>
+
+                            <!-- Dem photoswipe -->
+                            <div photo-slider></div>
+                        </section>
+
+                    </div>
+                </div>
 
             </div>
         </div>
+
         <!-- Footer -->
         <div id="footer-wrapper">
             <section id="footer" class="container">
@@ -119,16 +129,21 @@
 
     </div>
 
-
     <!-- Scripts -->
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/angular.js"></script>
-    <script src="assets/js/angular-animate.min.js"></script>
     <script src="assets/js/jquery.dropotron.min.js"></script>
     <script src="assets/js/skel.min.js"></script>
     <script src="assets/js/skel-viewport.min.js"></script>
     <script src="assets/js/util.js"></script>
     <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
     <script src="assets/js/main.js"></script>
+    <script src="assets/plugins/photoswipe/photoswipe.min.js"></script>
+    <script src="assets/plugins/photoswipe/photoswipe-ui-default.min.js"></script>
+    <script src="assets/plugins/photoswipe/angular-photoswipe.js"></script>
+    <script src="assets/plugins/angular-toaster/toaster.min.js"></script>
+    <script src="assets/plugins/angular-loading-bar/loading-bar.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/session3.js"></script>
 </body>
 </html>

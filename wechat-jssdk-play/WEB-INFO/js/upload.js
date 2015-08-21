@@ -10,7 +10,7 @@
             $scope.fileName = '';
             $scope.description = '';
             $scope.showErrMsg = function () {
-                toaster.error("温馨提示","图片大小不操作1M");
+                toaster.error("温馨提示","图片大小不操过1M");
             };
             $scope.submit = function () {
                 function checkImgType(fileName) {

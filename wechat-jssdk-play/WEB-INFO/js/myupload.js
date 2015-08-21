@@ -21,7 +21,7 @@ app.controller('imageController', ['$scope', '$http', '$window','config','cfpLoa
         $scope.currentPageIndex = 1; //start from page 1
         $scope.totalItemsCount = 0; //total count of images 
         $scope.startIndex = 0; //the start index of the image source
-
+        $scope.totalPage = 0;
         //get the next page
         $scope.next = function () {
 
@@ -72,6 +72,7 @@ app.controller('imageController', ['$scope', '$http', '$window','config','cfpLoa
                     $scope.images.push(image);
                 }
             }
+            $scope.totalPage = Math.ceil($scope.totalItemsCount / $scope.pageSize);
         }
 
         $scope.init = function () {

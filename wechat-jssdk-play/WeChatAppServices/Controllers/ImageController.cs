@@ -139,8 +139,6 @@ namespace WeChatAppServices.Controllers
             return Ok(result);
         }
 
-
-
         [HttpPost]
         public IHttpActionResult Submit(UploadedImageData imageData)
         {
@@ -373,6 +371,75 @@ namespace WeChatAppServices.Controllers
             serializer.Serialize(fs, collection);
             fs.Close();
             return Ok();
+        }
+
+        [HttpGet]
+        public List<UploadedImageData> GetSessionImages(int sessionId)
+        {
+            //all of the images in the databases
+            IQueryable<UploadedImageData> images;
+            images = db.UploadedImages
+                .OrderByDescending(img => img.UploadDate)
+                .Select(img => new UploadedImageData()
+                {
+                    ImageId = img.ID,
+                    FileName = img.FileName,
+                    OpenID = img.OpenID,
+                    Description = img.Description,
+                    Height = img.Height,
+                    Width = img.Width
+                });
+
+            var sessionFolder = GetImageFolder(string.Format("session{0}", sessionId));
+            var imageDateFolders = System.IO.Directory.GetDirectories(sessionFolder);
+            List<string> fileNames = new List<string>();
+            foreach (var folder in imageDateFolders)
+            {
+                var dateFolderName = System.IO.Path.GetFileName(folder);
+                var imageFiles = Directory.GetFiles(folder);
+                foreach (var item in imageFiles)
+                {
+                    var imgFileName = System.IO.Path.GetFileName(item);
+                    var imageFileNameWithDateFolder = string.Format("{0}/{1}", dateFolderName, imgFileName);
+                    fileNames.Add(imageFileNameWithDateFolder);
+                }
+            }
+            var imgs= images.ToList();
+            return imgs.Where(item => fileNames.Any(f => f == item.FileName)).ToList();
+         }
+
+        [HttpGet]
+        public List<UploadedImageData> GetSeletectedVoteImages()
+        {
+            //all of the images in the databases
+            IQueryable<UploadedImageData> images;
+            images = db.UploadedImages
+                .OrderByDescending(img => img.UploadDate)
+                .Select(img => new UploadedImageData()
+                {
+                    ImageId = img.ID,
+                    FileName = img.FileName,
+                    OpenID = img.OpenID,
+                    Description = img.Description,
+                    Height = img.Height,
+                    Width = img.Width
+                });
+
+            var sessionFolder = GetImageFolder("imagesForVote");
+            var imageDateFolders = System.IO.Directory.GetDirectories(sessionFolder);
+            List<string> fileNames = new List<string>();
+            foreach (var folder in imageDateFolders)
+            {
+                var dateFolderName = System.IO.Path.GetFileName(folder);
+                var imageFiles = Directory.GetFiles(folder);
+                foreach (var item in imageFiles)
+                {
+                    var imgFileName = System.IO.Path.GetFileName(item);
+                    var imageFileNameWithDateFolder = string.Format("{0}/{1}", dateFolderName, imgFileName);
+                    fileNames.Add(imageFileNameWithDateFolder);
+                }
+            }
+            return images.Where(item => fileNames.Any(f => f == item.FileName)).ToList();
         }
 
         protected override void Dispose(bool disposing)
