@@ -295,6 +295,29 @@ namespace WeChatAppServices.Controllers
         }
 
         [HttpGet]
+        public IList<UploadedImageData> ExportAllData()
+        {
+            IList<UploadedImageData> images;
+            images = db.UploadedImages
+                .OrderByDescending(img => img.UploadDate)
+                .Select(img => new UploadedImageData()
+                {
+                    ImageId = img.ID,
+                    FileName = img.FileName,
+                    OpenID = img.OpenID,
+                    Description = img.Description,
+                    Height = img.Height,
+                    Width = img.Width
+                }).ToList();
+            var members = db.Members.ToList();
+            foreach (var item in images)
+            {
+                item.NickName = members.First(m => m.OpenID == item.OpenID).NickName;
+            }
+            return images;
+        }
+
+        [HttpGet]
         public List<UploadedImageData> GetAllGreatImages()
         {
             var result = new List<UploadedImageData>();
