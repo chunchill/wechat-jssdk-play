@@ -451,6 +451,7 @@ namespace WeChatAppServices.Controllers
             var sessionFolder = GetImageFolder("imagesForVote");
             var imageDateFolders = System.IO.Directory.GetDirectories(sessionFolder);
             List<string> fileNames = new List<string>();
+            var imagesList = images.ToList();
             foreach (var folder in imageDateFolders)
             {
                 var dateFolderName = System.IO.Path.GetFileName(folder);
@@ -462,7 +463,7 @@ namespace WeChatAppServices.Controllers
                     fileNames.Add(imageFileNameWithDateFolder);
                 }
             }
-            return images.Where(item => fileNames.Any(f => f == item.FileName)).ToList();
+            return imagesList.Where(item => fileNames.Any(f => f == item.FileName)).ToList();
         }
 
         protected override void Dispose(bool disposing)
